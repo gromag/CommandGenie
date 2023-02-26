@@ -1,8 +1,5 @@
-import argparse
-import os
 import sys
-from enum import Enum
-from contextlib import suppress
+import argparse
 from .version import __version__
 
 
@@ -25,6 +22,7 @@ def get_shell_args(args=None):
         nargs=0,
         help="Prints the CommandGenie version.",
     )
+    
     shellargs = parser.parse_args(args)
 
     return shellargs

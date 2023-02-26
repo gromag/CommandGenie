@@ -8,11 +8,12 @@
             "name": "Python: Current File",
             "type": "python",
             "request": "launch",
-            "program": "${file}",
+            "program": "${workspaceFolder}/src/cli.py",
             "args": ["copy", "requirements.txt", "into", "tests", "folder"],
             "console": "integratedTerminal",
             "justMyCode": false,
-            "envFile": "${workspaceFolder}/.env"
+            "envFile": "${workspaceFolder}/.env",
+            "cwd": "${workspaceFolder}/src"
         }
     ]
 }
