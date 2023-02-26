@@ -19,7 +19,7 @@ keywords = ["terminal", "command-line", "AI", "artificial intelligence", "automa
 dynamic = ["version", "dependencies"]
 
 [project.scripts]
-genie = "main"
+genie = "main:start"
 
 
 [tool.setuptools.dynamic]

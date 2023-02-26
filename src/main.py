@@ -8,6 +8,7 @@ from langchain.utilities import BashProcess
 import sys
 import re
 import os
+from internals import shell_args
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -34,7 +35,7 @@ Question: {question}"""
 
 PROMPT = PromptTemplate(input_variables=["question"], template=_PROMPT_TEMPLATE)
 
-llm = OpenAI(temperature=0, openai_api_key= os.getenv("OPENAI_API_KEY"))
+llm = OpenAI(temperature=0.2, openai_api_key= os.getenv("OPENAI_API_KEY"))
 bash_chain = LLMBashChain(llm=llm, prompt=PROMPT, verbose=True)
 
 
@@ -88,18 +89,25 @@ class Genie(GenieBase):
     @classmethod
     def activate(cls, instruction):
         g = Genie()
-        # try:
+
         command, reasoning = g.get_command(instruction)
         execute = g.confirm_command(command, reasoning)
         if execute:
             g.execute_command(command)
 
-
-
-if __name__ == "__main__":
+def start():
     # Get the command-line arguments
     args = sys.argv[1:]
     # Join the arguments into a single string
-    instruction = ' '.join(args)
-    Genie.activate(instruction)
+    instruction = ' '.join(args).strip()
+
+    if not len(instruction):
+        shell_args.get_shell_args(["--help"])
+    elif instruction[0] == "-":
+        shell_args.get_shell_args()
+    else:
+        Genie.activate(instruction)
+
+if __name__ == "__main__":
+    start()
     
