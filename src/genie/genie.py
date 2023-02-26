@@ -11,6 +11,7 @@ from typing import List
 from langchain.utilities import BashProcess
 from genie.consts import PROMPT_TEMPLATE, COMMAND_ASK_EXECUTE_TEMPLATE
 from genie.interfaces import GenieBase, LanguageModelBase, LanguageModelResponse
+from internals.ui_interaction import UIInteraction
 
 
 class Genie(GenieBase):
@@ -29,9 +30,10 @@ class Genie(GenieBase):
          the provided instruction.
     """
 
-    def __init__(self, llm: LanguageModelBase) -> None:
+    def __init__(self, llm: LanguageModelBase, ui_interaction: UIInteraction) -> None:
         super().__init__()
         self.llm = llm
+        self.ui = ui_interaction
         self.commands_history: List[LanguageModelResponse] = []
         self.bash = BashProcess()
 
@@ -63,7 +65,7 @@ class Genie(GenieBase):
             None
         """
         output = self.bash.run(command)
-        print(output)
+        self.ui.say(output)
 
     def confirm_command(self, command, reasoning):
         """
@@ -76,12 +78,14 @@ class Genie(GenieBase):
         Returns:
             A Boolean indicating whether the command should be executed.
         """
-        answer = input(COMMAND_ASK_EXECUTE_TEMPLATE.format(command=command))
-        if answer in ["Y", "y"]:
-            print("\n")
+        answer = self.ui.ask(COMMAND_ASK_EXECUTE_TEMPLATE.format(command=command)).lower()
+        if answer in ["yes", "y"]:
+            self.ui.say("\n")
             return True
-        if answer in ["e", "explain"]:
+        elif answer in ["e", "explain"]:
             return self.confirm_command(reasoning, reasoning)
+        else:
+            return False
 
     def run(self, instruction):
         """

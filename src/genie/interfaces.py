@@ -103,3 +103,11 @@ class LanguageModelBase(ABC):
             A LanguageModelResponse object containing the generated command and reasoning.
         """
         pass
+
+
+class UserInteractionBase(ABC):
+    def ask(self, question) -> str:
+        pass
+
+    def say(self, text: str):
+        pass

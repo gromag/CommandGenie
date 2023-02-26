@@ -4,10 +4,12 @@ from dotenv import load_dotenv
 from internals import shell_args
 from genie.genie import Genie
 from genie.models.openai_model import OpenAILanguageModel
+from internals.ui_interaction import UIInteraction
 load_dotenv()
 
 model = OpenAILanguageModel(os.getenv("OPENAI_API_KEY"))
-genie = Genie(model)
+ui_interaction = UIInteraction()
+genie = Genie(model, ui_interaction)
 
 
 def start():

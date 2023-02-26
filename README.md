@@ -43,3 +43,13 @@ pip install dist/*.whl
 cd ..
 
 ```
+
+### Calculating test coverage
+
+```bash
+    cd CommandGenie
+    source .venv/bin/activate
+    coverage run --source=. -m pytest 
+    coverage report
+    coverage html -d coverage 
+```
