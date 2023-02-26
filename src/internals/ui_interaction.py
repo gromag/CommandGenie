@@ -1,4 +1,4 @@
-from genie.interfaces import UserInteractionBase
+from abstractions import UserInteractionBase
 
 
 class UIInteraction(UserInteractionBase):

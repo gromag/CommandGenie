@@ -10,20 +10,19 @@ Classes:
 """
 
 from abc import ABC, abstractmethod
+from pathlib import Path
 from pydantic import BaseModel
 
 
-class GenieBase(ABC):
+class GenieBaseServer(ABC):
     """
-    Abstract base class for a Genie, a class that generates and executes commands.
+    Abstract base class for a Genie, a class that generates commands.
 
     Attributes:
         None
 
     Methods:
         get_command(instruction): Abstract method that returns a command string based on the provided instruction.
-        execute_command(command): Abstract method that executes the given command.
-        confirm_command(command, reasoning): Abstract method that confirms the given command based on some reasoning.
     """
 
     @abstractmethod
@@ -38,6 +37,19 @@ class GenieBase(ABC):
             A string representing a command.
         """
         pass
+
+
+class GenieBaseClient(GenieBaseServer):
+    """
+    Abstract base class for a Genie, a class that generates and executes commands.
+
+    Attributes:
+        None
+
+    Methods:
+        execute_command(command): Abstract method that executes the given command.
+        confirm_command(command, reasoning): Abstract method that confirms the given command based on some reasoning.
+    """
 
     @abstractmethod
     def execute_command(self, command):
@@ -110,4 +122,9 @@ class UserInteractionBase(ABC):
         pass
 
     def say(self, text: str):
+        pass
+
+
+class LogPathProvider(ABC):
+    def get_path(self) -> Path:
         pass

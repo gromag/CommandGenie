@@ -29,7 +29,8 @@ cp -r target/* myNewDirectory
 Do not use 'echo' when writing the script.
 
 That is the format. Begin!
-Question: {question}"""
+Question: {question}
+Your answer:"""
 
 
 COMMAND_ASK_EXECUTE_TEMPLATE = "\n\n{command}\n\nWould you like to execute? [Y/n/(e)xplain] "
