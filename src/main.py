@@ -13,21 +13,27 @@ from dotenv import load_dotenv
 load_dotenv()
 
 _PROMPT_TEMPLATE = """If someone asks you to perform a task, your job is to come up with a series of bash commands that will perform the task. There is no need to put "#!/bin/bash" in your answer. Make sure to reason step by step, using this format:
+---
+Question: "list the current directory in chronological order"
+I need to take the following actions:
+- List all files in the current directory in chronological order
+Explanation:
+`ls -t` lists all files in the current directory sorted by discending time modified
+```bash
+ls -t
+```
+---
 Question: "copy the files in the directory named 'target' into a new directory at the same level as target called 'myNewDirectory'"
 I need to take the following actions:
-- List all files in the directory
-- Create a new directory
-- Copy the files from the first directory into the second directory
+- Create a new directory called 'myNewDirectory'
+- Copy the files from the existing directory into the new directory
 Explanation:
-`ls` lists all files in current directory 
 `mkdir` creates a new directory
 `cp -r` copies files recursively into the new directory
 ```bash
-ls
 mkdir myNewDirectory
 cp -r target/* myNewDirectory
 ```
-
 Do not use 'echo' when writing the script.
 
 That is the format. Begin!
@@ -60,8 +66,7 @@ class Genie(GenieBase):
         self.bash = BashProcess()
 
     def get_command(self, instruction):
-
-        prompt = PROMPT.format(question=instruction)
+        prompt = _PROMPT_TEMPLATE.format(question=instruction)
         # print(prompt)
 
         result = llm.generate([prompt])
