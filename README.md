@@ -32,14 +32,14 @@ genie find all txt files containing the word openai in current directory
 
 ## Build
 ```bash
-    cd CommandGenie
-    source .venv/bin/activate
-    pip install build
-    python -m build .
-    deactivate
-    python -m venv .venv2 #installation is done on within a different venv to the development venv
-    source .venv2/bin/activate
-    pip install dist/*.whl
-    cd ..
+cd CommandGenie
+source .venv/bin/activate
+pip install build
+python -m build .
+deactivate
+python -m venv .venv2 #installation is done on within a different venv to the development venv
+source .venv2/bin/activate
+pip install dist/*.whl
+cd ..
 
 ```
