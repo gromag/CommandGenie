@@ -1,0 +1,47 @@
+[build-system]
+requires = ["setuptools>=48", "setuptools_scm[toml]>=7"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "command-genie"
+description = """CommandGenie is your personal AI-powered command generator for the terminal. Tired of typing out long and complicated commands? Let CommandGenie do the work for you! Simply describe the task you want to perform, and CommandGenie will generate the appropriate command for you. With CommandGenie, you can save time and increase productivity, all while impressing your colleagues with your newfound command-line wizardry. Whether you're a seasoned developer or just starting out, CommandGenie is the perfect tool to make your command-line experience faster, easier, and more enjoyable. Try it out today and see the magic of CommandGenie!"""
+readme = "README.md"
+requires-python = ">3.7"
+license = { text = "MIT Licence" }
+authors = [
+    { name = "Giuseppe Romagnuolo", email = "g.romagnuolo@gmail.com" },
+]
+maintainers = [
+    { name = "Giuseppe Romagnuolo", email = "g.romagnuolo@gmail.com" },
+]
+keywords = ["terminal", "command-line", "AI", "artificial intelligence", "automation", "developer", "productivity", "efficiency", "workflow", "generator", "code", "programming", "Python", "CLI", "shell", "developer tool"]
+
+dynamic = ["version", "dependencies"]
+
+[project.scripts]
+genie = "main"
+
+
+[tool.setuptools.dynamic]
+dependencies = { file = "requirements.txt" }
+
+[tool.setuptools_scm]
+write_to = "src/internals/_auto_generated_version.py"
+
+[tool.black]
+line-length = 120
+include = '\.pyi?$'
+exclude = '''
+/(
+    \.eggs
+  | \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | _build
+  | buck-out
+  | build
+  | dist
+)/
+'''
