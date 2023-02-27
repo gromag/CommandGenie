@@ -7,14 +7,59 @@ Classes:
 
 """
 
-from typing import List
+from typing import Dict
 from langchain.utilities import BashProcess
 from genie.consts import PROMPT_TEMPLATE, COMMAND_ASK_EXECUTE_TEMPLATE
-from genie.interfaces import GenieBase, LanguageModelBase, LanguageModelResponse
+from abstractions import GenieBaseClient, GenieBaseServer, LanguageModelBase, LanguageModelResponse
 from internals.ui_interaction import UIInteraction
+from internals.logger import genie_logger
+from daemon.client import call_daemon
 
 
-class Genie(GenieBase):
+class GenieServer(GenieBaseServer):
+    """
+    The Genie class generates commands based on natural language instructions.
+    Run as a daemon.
+
+    Attributes:
+        commands_history: A list of tuples containing the command and reasoning for each generated command.
+        bash: A BashProcess object for executing commands.
+
+    Methods:
+        get_command(instruction): Generates a command string based on the provided natural language instruction.
+        execute_command(command): Executes the given command.
+        confirm_command(command, reasoning): Asks the user to confirm the given command based on some reasoning.
+        run(instruction): Creates a Genie instance and generates, executes and confirms a command based on
+         the provided instruction.
+    """
+
+    def __init__(self, llm: LanguageModelBase) -> None:
+        super().__init__()
+        self.llm = llm
+        self.commands_history: Dict[str, LanguageModelResponse] = {}
+
+    def get_command(self, instruction):
+        """
+        Generates a command string based on the provided natural language instruction.
+
+        Args:
+            instruction: A string representing a natural language instruction.
+
+        Returns:
+            A tuple containing a string representing a command and a string representing the
+             reasoning behind the command.
+        """
+        if instruction not in self.commands_history.keys():
+            genie_logger.info("Command not found in history")
+            prompt = PROMPT_TEMPLATE.format(question=instruction)
+            command = self.llm.execute(prompt=prompt)
+            self.commands_history[instruction] = command
+
+        output = self.commands_history[instruction]
+        return output.command, output.reasoning
+
+
+class GenieClient(GenieBaseClient):
     """
     The Genie class generates and executes commands based on natural language instructions.
 
@@ -30,11 +75,9 @@ class Genie(GenieBase):
          the provided instruction.
     """
 
-    def __init__(self, llm: LanguageModelBase, ui_interaction: UIInteraction) -> None:
+    def __init__(self, ui_interaction: UIInteraction) -> None:
         super().__init__()
-        self.llm = llm
         self.ui = ui_interaction
-        self.commands_history: List[LanguageModelResponse] = []
         self.bash = BashProcess()
 
     def get_command(self, instruction):
@@ -48,11 +91,7 @@ class Genie(GenieBase):
             A tuple containing a string representing a command and a string representing the
              reasoning behind the command.
         """
-        prompt = PROMPT_TEMPLATE.format(question=instruction)
-
-        output = self.llm.execute(prompt=prompt)
-        self.commands_history.append(output)
-        return output.command, output.reasoning
+        return call_daemon(instruction)
 
     def execute_command(self, command):
         """

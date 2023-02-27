@@ -5,11 +5,32 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Python: Current File",
+            "name": "Client",
             "type": "python",
             "request": "launch",
             "program": "${workspaceFolder}/src/cli.py",
             "args": ["copy", "requirements.txt", "into", "tests", "folder"],
+            "console": "integratedTerminal",
+            "justMyCode": false,
+            "envFile": "${workspaceFolder}/.env",
+            "cwd": "${workspaceFolder}/src"
+        },
+        {
+            "name": "Daemon",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/src/cli.py",
+            "args": ["-s"],
+            "console": "integratedTerminal",
+            "justMyCode": false,
+            "envFile": "${workspaceFolder}/.env",
+            "cwd": "${workspaceFolder}/src"
+        },
+        {
+            "name": "No Args",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/src/cli.py",
             "console": "integratedTerminal",
             "justMyCode": false,
             "envFile": "${workspaceFolder}/.env",

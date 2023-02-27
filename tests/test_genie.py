@@ -1,5 +1,5 @@
 import pytest
-from genie.genie import Genie
+from genie.genie import GenieClient
 from internals.ui_interaction import UIInteraction
 
 
@@ -29,12 +29,11 @@ class TestGenie:
     )
     def test_confirm_command(self, monkeypatch, answer, expected):
         # Arrange
-        genie = Genie(MockLanguageModel(), MockUIInteraction())
+        genie = GenieClient(MockUIInteraction())
         monkeypatch.setattr(MockUIInteraction, "ask", lambda s, _: answer)
 
         # Act
         output = genie.confirm_command("ls", "list files")
-        
+
         # Assert
         assert output == expected, f"answer was {answer} and output expected was {expected}"
-
