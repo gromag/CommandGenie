@@ -70,7 +70,7 @@ def _get_shell_args(args):
         nargs=0,
         help=f"Sets high verbosity (DEBUG). To view the file logs see: {LogPathProvider().get_path()}",
     )
-    
+
     parser.add_argument("-s", "--start", action=StartAction, nargs=0, help="Starts the CommandGenie daemon")
 
     parser.add_argument(
@@ -79,7 +79,6 @@ def _get_shell_args(args):
         action=CommandAction,
         help="Takes an English instruction which will be converted into a shell command",
     )
-
 
     shellargs = parser.parse_args(args)
 

@@ -9,7 +9,7 @@ load_dotenv()
 
 class OpenAILanguageModel(LanguageModelBase):
     def __init__(self, open_api_key: str) -> None:
-        self.llm = OpenAI(temperature=0.2, openai_api_key=open_api_key)
+        self.llm = OpenAI(temperature=0, openai_api_key=open_api_key)
 
     def execute(self, prompt: str) -> LanguageModelResponse:
         genie_logger.info(prompt)
