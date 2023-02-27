@@ -89,7 +89,7 @@ source .venv/bin/activate
 pip install build
 python -m build .
 deactivate
-#installation should be done a different venv or your main python environment
+#installation should be done on a different venv or your main python environment
 # python -m venv .venv2 
 # source .venv2/bin/activate
 pip install dist/*.whl
