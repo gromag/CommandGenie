@@ -23,7 +23,7 @@ Please see build, not published to Pypy yet.
 ## Usage
 
 ```bash
-#export OPENAI_API_KEY=<my-key>
+export OPENAI_API_KEY=<my-openai-api-key>
 # start daemon on a separate shell window
 genie -start
 ```
@@ -54,6 +54,31 @@ Explanation:
 
 Would you like to execute? [Y/n/(e)xplain]
 ```
+
+Please use help for all options.
+
+
+```text
+genie --help
+usage: genie [-h] [-v] [-V] [-s] [-c COMMAND]
+
+CommandGenie Utility (version: 0.1.dev9+gdbba154.d20230226). CommandGenie
+is a Python-based command-line tool that uses the power of artificial
+intelligence to generate commands and automate common tasks. Please start
+the daemon `genie -s` on a separate shell window before starting the
+client. Example usage: `genie delete all __pycache__ folders`
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -v, --version         Prints the CommandGenie version
+  -V, --verbose         Sets high verbosity (DEBUG). To view the file logs
+                        see: /Users/gr/Library/Logs/CommandGenie
+  -s, --start           Starts the CommandGenie daemon
+  -c COMMAND, --command COMMAND
+                        Takes an English instruction which will be
+                        converted into a shell command
+```
+
 
 ## Build
 ```bash
