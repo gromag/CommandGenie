@@ -13,12 +13,7 @@ I believe that even in its current state, CommandGenie can provide value to deve
 
 
 
-## Install
 
-Please see build, not published to Pypy yet.
-```bash
-#pip install command_genie
-```
 
 ## Usage
 
@@ -79,16 +74,24 @@ optional arguments:
                         converted into a shell command
 ```
 
+## Install
+
+Please see build section below, currently not published to Pypy so you will need to download this project, build and install the wheel file.
+```bash
+#pip install command_genie
+```
 
 ## Build
 ```bash
+git clone https://github.com/gromag/CommandGenie.git
 cd CommandGenie
 source .venv/bin/activate
 pip install build
 python -m build .
 deactivate
-python -m venv .venv2 #installation is done on within a different venv to the development venv
-source .venv2/bin/activate
+#installation should be done a different venv or your main python environment
+# python -m venv .venv2 
+# source .venv2/bin/activate
 pip install dist/*.whl
 cd ..
 
