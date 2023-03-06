@@ -9,7 +9,7 @@ CommandGenie is a Python-based command-line tool that uses [OpenAI GPT3](https:/
 - Do not rely solely on the model's own explanation; do your own research if you are not sure.
 - By using CommandGenie, you accept that I am not responsible for any consequences that may result from using this tool, including but not limited to data loss, system instability, or other issues.
 
-I believe that even in its current state, CommandGenie can provide value to developers looking to automate their command-line tasks and increase their productivity. Thank you for trying out my tool, and I hope you find it useful in your work!"""
+I believe that even in its current state, CommandGenie can provide value to developers looking to automate their command-line tasks and increase their productivity. Thank you for trying out my tool, and I hope you find it useful in your work!
 
 
 
