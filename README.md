@@ -76,12 +76,12 @@ optional arguments:
 
 ## Install
 
-Please see build section below, currently not published to Pypy so you will need to download this project, build and install the wheel file.
+Please see build section below, currently not published to PyPI so you will need to download this project, build and install the wheel file.
 ```bash
 #pip install command_genie
 ```
 
-## Build
+## Build and install from local wheel file
 ```bash
 git clone https://github.com/gromag/CommandGenie.git
 cd CommandGenie
