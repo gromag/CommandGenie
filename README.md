@@ -20,7 +20,7 @@ I believe that even in its current state, CommandGenie can provide value to deve
 ```bash
 export OPENAI_API_KEY=<my-openai-api-key>
 # start daemon on a separate shell window
-genie -start
+genie --start
 ```
 
 ```bash
