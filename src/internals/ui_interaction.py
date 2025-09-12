@@ -2,6 +2,7 @@ from abstractions import UserInteractionBase
 
 
 class UIInteraction(UserInteractionBase):
+
     def __init__(self) -> None:
         super().__init__()
 

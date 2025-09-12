@@ -1,16 +1,19 @@
+
+import timeit
 import os
 from dotenv import load_dotenv
 from multiprocessing.connection import Listener
+from internals.logger import genie_logger
 
+genie_logger.info(f"Daemon starting")
 
 load_dotenv()
 
 
 def start_daemon():
-    # import only in triggered
+    # import only if triggered
     from genie.genie import GenieServer
     from genie.models.openai_model import OpenAILanguageModel
-    from internals.logger import genie_logger
 
     model = OpenAILanguageModel(os.getenv("OPENAI_API_KEY"))
     genie = GenieServer(model)
@@ -19,7 +22,6 @@ def start_daemon():
 
     address = ("localhost", 6000)
     listener = Listener(address)
-
     while True:
         conn = listener.accept()
         data = conn.recv()
